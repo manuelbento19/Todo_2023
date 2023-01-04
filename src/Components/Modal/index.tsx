@@ -5,6 +5,7 @@ import taskIcon from './../../assets/task-done-flat.png';
 import { FaCalendar, FaCheck, FaHourglass, FaTimes } from 'react-icons/fa';
 import { Task } from '../../Types/Task';
 import { DateFormart } from '../../Utils/DateFormater';
+import { DiffDateCalculator } from '../../Utils/DiffDate';
 
 type TaskModalPros = {
     task:Task & {index:number};
@@ -31,16 +32,21 @@ const TaskModal = ({task,CloseTask,Visible}:TaskModalPros) => {
                 {task.checked && (
                     <Fragment>
                         {task.closed_at && (
-                        <div className='description'>
-                            <FaCalendar/> <strong>Data de fecho:</strong> {DateFormart(task.closed_at)}
-                        </div>
+                            <Fragment>
+                                <div className='description'>
+                                    <FaCalendar/> <strong>Data de fecho:</strong> {DateFormart(task.closed_at)}
+                                </div>
+                                <div className='description'>
+                                    <FaHourglass/> <strong>Nº de dias:</strong> {DiffDateCalculator({firstDate:task.created_at,lastDate:task.closed_at})}
+                                </div>
+                            </Fragment>
                         )}
-                        <div className='description'>
-                            <FaHourglass/> <strong>Nº de dias:</strong> {2}
-                        </div>
                     </Fragment>
                 )}
-                {!task.checked && <CloseTaskButton onClick={e=>CloseTask(task.index)}>Fechar</CloseTaskButton>}
+                {!task.checked && <CloseTaskButton onClick={e=>{
+                    CloseTask(task.index);
+                    Visible(false);
+                }}>Fechar</CloseTaskButton>}
             </Description>
         </Content>
     </Background>
