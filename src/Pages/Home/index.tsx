@@ -4,9 +4,12 @@ import {FaPlus,FaBroom} from 'react-icons/fa';
 import { Task } from "../../Types/Task";
 import TaskCard from "../../Components/Task";
 import { StorageManager } from "../../Utils/LocalStorage";
+import TaskModal from "../../Components/Modal";
 
 function Home(){
     const [task,setTask] = useState("");
+    const [selectedTask,setSelectedTask] = useState<Task & {index:number}>();
+    const [visible,setVisible] = useState(false);
     const [tasks,setTasks] = useState<Task[]>([]);
     const storage = new StorageManager("tasks");
 
@@ -24,8 +27,8 @@ function Home(){
         if(task!="" && task.trim()!=""){
             tasks.push({
                 task,
-                checked:false,
-                created_at: new Date()
+                checked: false,
+                created_at: new Date(),
             });
             setTasks(tasks);
             storage.SetLocalData(tasks)
@@ -81,11 +84,12 @@ function Home(){
                 <MainSection className="content">
                     <ul>
                         {tasks && tasks.map((item,index)=>(
-                        <TaskCard key={index} Index={index} task={item} CloseTask={closeTask} DeleteTask={deleteTask}/>
+                            <TaskCard  key={index} task={{...item,index}} SelectTask={setSelectedTask} Visible={setVisible} CloseTask={closeTask} DeleteTask={deleteTask}/>
                         ))}
                     </ul>
                 </MainSection>
             </Main>
+            {visible && selectedTask && <TaskModal task={selectedTask} Visible={setVisible} CloseTask={closeTask}/>}
         </Container>
     )
 }
