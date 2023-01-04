@@ -4,6 +4,7 @@ import {AiOutlineClose as CloseIcon} from 'react-icons/ai';
 import taskIcon from './../../assets/task-done-flat.png';
 import { FaCalendar, FaCheck, FaHourglass, FaTimes } from 'react-icons/fa';
 import { Task } from '../../Types/Task';
+import { DateFormart } from '../../Utils/DateFormater';
 
 type TaskModalPros = {
     task:Task & {index:number};
@@ -25,13 +26,15 @@ const TaskModal = ({task,CloseTask,Visible}:TaskModalPros) => {
             <Text>{task.task}</Text>
             <Description>
                 <div className='description'>
-                    <FaCalendar/> <strong>Data:</strong> {new Date(task.created_at).toLocaleDateString()}
+                    <FaCalendar/> <strong>Data:</strong> {DateFormart(task.created_at)}
                 </div>
                 {task.checked && (
                     <Fragment>
+                        {task.closed_at && (
                         <div className='description'>
-                            <FaCalendar/> <strong>Data de fecho:</strong> {new Date(task.closed_at||"").toLocaleDateString()}
+                            <FaCalendar/> <strong>Data de fecho:</strong> {DateFormart(task.closed_at)}
                         </div>
+                        )}
                         <div className='description'>
                             <FaHourglass/> <strong>Nº de dias:</strong> {2}
                         </div>
