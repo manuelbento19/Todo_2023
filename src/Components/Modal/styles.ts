@@ -65,6 +65,7 @@ export const Text = styled.p`
     color: #888;
     text-align: justify;
     padding: 0 6px;
+    word-break: break-all;
 `;
 export const Description = styled.section`
     margin-top: 15px;

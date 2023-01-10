@@ -36,6 +36,7 @@ export const Card = styled.li`
         display: flex;
         position: relative;
         p{
+            word-break: break-all;
             color: #555;
             font-size: 13px;
             font-weight: 200;
