@@ -8,6 +8,9 @@ export const Container = styled.div`
 
     .content{
         padding: 15px 30px;
+        @media(max-width: 450px) {
+            padding: 8px 15px;
+        }
     }
 `;
 export const Main = styled.main`
@@ -20,10 +23,10 @@ export const Main = styled.main`
     box-shadow: 10px 10px 6px rgba(0 0 0 /15%);
 `;
 const TurnerAnimation = keyframes`
-    from{
+    0%{
         transform: rotate(0);
     }    
-    to{
+    100%{
         transform: rotate(360deg);
     }
 `;
@@ -32,7 +35,7 @@ export const Header = styled.header`
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    height: 150px;
+    min-height: 150px;
 `;
 export const TopHeader = styled.div`
     width: 100%;
@@ -49,7 +52,6 @@ export const TopHeader = styled.div`
         border: 0;
         background-color: transparent;
         cursor: pointer;
-
         :hover i{
             animation: ${TurnerAnimation} 1s 0s linear infinite;
             transition: all 1s;
@@ -63,14 +65,15 @@ export const BottomHeader = styled.div`
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        gap: 6px;
     }
 
     input{
         font-size: 0.9em;
         flex: 1;
-        height: 38px;
+        height: 40px;
         padding: 6px;
-        margin-right: 20px;
+        margin-right: 2px;
         border: 2px solid #777;
         border-radius: 2px;
         outline: none;
@@ -82,6 +85,7 @@ export const BottomHeader = styled.div`
     button{
         font-size: 1em;
         width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
